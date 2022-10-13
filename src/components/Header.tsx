@@ -14,7 +14,7 @@ function Header({ todos }: TodoLengthProps) {
   return (
     <header>
       <h4>
-        {year}년 {month}월 {date}일
+        {year}년 {month + 1}월 {date}일
       </h4>
       <p>{week[day]}요일</p>
       <span>할일 {remain.length}개 남음</span>

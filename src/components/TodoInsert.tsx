@@ -11,6 +11,17 @@ function TodoInsert({ onInsert }: TodoInsertProps) {
   };
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const textbox = {
+      value,
+    };
+    fetch("http://localhost:3001/todo", {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(textbox),
+    });
+
     if (value.length !== 0) {
       onInsert(value);
       setValue("");
