@@ -3,6 +3,17 @@ const app = express();
 const port = 3001; // <- 3000에서 다른 숫자로 변경
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const mysql = require("mysql");
+
+// mysql이랑 연동
+var connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "1234567a",
+  database: "tododb",
+});
+
+connection.connect();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
