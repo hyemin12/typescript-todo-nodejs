@@ -20,7 +20,7 @@ function TodoList({ todos, onDelete, onToggle }: TodoListProps) {
               todo={todo}
               onDelete={onDelete}
               onToggle={onToggle}
-              key={todo.id}
+              key={todo.idx}
             />
           ))}
         </ul>

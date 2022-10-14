@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { FormEvent, useState } from "react";
 
 type TodoInsertProps = {
@@ -9,22 +10,17 @@ function TodoInsert({ onInsert }: TodoInsertProps) {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+  /** 투두리스트 추가
+   * content: 투두리스트 내용 */
   const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const textbox = {
-      value,
-    };
-    fetch("http://localhost:3001/create", {
-      method: "post",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(textbox),
-    });
-
-    if (value.length !== 0) {
-      onInsert(value);
+    try {
+      const res = axios.post("http://localhost:3001/create", {
+        content: value,
+      });
       setValue("");
+      console.log("DB 전송 성공!", res);
+    } catch (err: any) {
+      console.log(err.message);
     }
   };
   return (

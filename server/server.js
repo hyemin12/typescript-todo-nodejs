@@ -33,7 +33,7 @@ app.get("/todos", (req, res) => {
 });
 
 app.post("/create", (req, res) => {
-  const todotext = req.body.value;
+  const todotext = req.body.content;
   console.log(todotext);
   connection.query(
     "INSERT INTO todotable (content) values(?)",
@@ -43,6 +43,40 @@ app.post("/create", (req, res) => {
         console.log(error);
       } else {
         console.log("db 저장 성공!", rows);
+      }
+    }
+  );
+});
+
+app.post("/update", (req, res) => {
+  const idx = req.body.idx;
+  const todotext = req.body.content;
+  const isDone = req.body.done;
+
+  connection.query(
+    "UPDATE todotable SET content = ? WHERE idx = ?",
+    [todotext, isDone, idx],
+    (error, rows, fields) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.send(rows);
+        console.log("수정 성공!");
+      }
+    }
+  );
+});
+
+app.post("/delete", (req, res) => {
+  const idx = req.body.index;
+  connection.query(
+    "DELETE FROM todotable where idx=?",
+    [idx],
+    (error, rows, fields) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("삭제 성공!");
       }
     }
   );

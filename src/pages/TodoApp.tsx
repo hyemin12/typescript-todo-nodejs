@@ -23,7 +23,6 @@ function TodoApp({ todos }: { todos: Todo[] }) {
   const onToggle = (id: number) => {
     dispatch(toggleTodo(id));
   };
-  console.log(todos);
   return (
     <div className="container">
       <div className="inner">

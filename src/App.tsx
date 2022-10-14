@@ -10,12 +10,11 @@ function App() {
     try {
       const res = await axios.get("http://localhost:3001/todos/");
       setTodos(res.data);
-      console.log(res.data);
     } catch (err: any) {
       console.log(err.message);
     }
   };
-  console.log(todos);
+
   useEffect(() => {
     getTodos();
   }, []);

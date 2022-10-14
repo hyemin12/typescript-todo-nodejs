@@ -10,7 +10,7 @@ function Header({ todos }: TodoLengthProps) {
   const date = now.getDate();
   const day = now.getDay();
   const week = ["일", "월", "화", "수", "목", "금", "토"];
-  const remain = todos.filter((todo) => todo.done === false);
+  const remain = todos.filter((todo) => todo.isDone === 0);
   return (
     <header>
       <h4>

@@ -66,8 +66,20 @@ $mainColor: #fab005;
         align-items: center;
         gap: 20px;
         padding: 10px 0;
-        p {
+        input.todo-text-input {
           width: 360px;
+          height: 22px;
+          border: none;
+          font-weight: bold;
+          padding: 2px 7px;
+          font-size: 1rem;
+        }
+        input.todo-text-input:read-only {
+          font-weight: normal;
+        }
+        span.btn-edit {
+          color: blue;
+          cursor: pointer;
           transition: 0.3s;
         }
         span.btn-delete {
@@ -75,6 +87,7 @@ $mainColor: #fab005;
           cursor: pointer;
           transition: 0.3s;
         }
+        span.btn-edit:hover,
         span.btn-delete:hover {
           opacity: 0.7;
         }
@@ -87,6 +100,7 @@ $mainColor: #fab005;
           height: 20px;
           border: 1px solid #ccc;
           border-radius: 50%;
+          margin-top: 5px;
           cursor: pointer;
           transition: 0.3s;
         }
@@ -105,6 +119,7 @@ $mainColor: #fab005;
           color: #ccc;
           text-decoration: line-through;
         }
+        span.btn-edit,
         span.btn-delete {
           color: #ccc;
         }

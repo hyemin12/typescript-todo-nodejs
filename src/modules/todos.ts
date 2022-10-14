@@ -27,23 +27,23 @@ export type TodoAction =
 
 // type 초기값
 export type Todo = {
-  id: number;
+  idx: number;
   content: string;
-  done: boolean;
+  isDone: number;
 };
 
 export type TodosState = Todo[];
 
 const initialState: TodosState = [
   {
-    id: 1234,
+    idx: 1234,
     content: "타입스크립트 공부하기",
-    done: false,
+    isDone: 0,
   },
   {
-    id: 555,
+    idx: 555,
     content: "할일 완료!",
-    done: true,
+    isDone: 0,
   },
 ];
 
@@ -55,18 +55,18 @@ function todoReducer(
   switch (action.type) {
     case ADD_TODO:
       return state.concat({
-        id: Date.now(),
+        idx: Date.now(),
         content: action.payload,
-        done: false,
+        isDone: 0,
       });
 
     case TOGGLE_TODO:
       return state.map((todo) =>
-        todo.id === action.payload ? { ...todo, done: !todo.done } : todo
+        todo.idx === action.payload ? { ...todo, isDone: 1 } : todo
       );
 
     case DELETE_TODO:
-      return state.filter((todo) => todo.id !== action.payload);
+      return state.filter((todo) => todo.idx !== action.payload);
 
     default:
       return state;
