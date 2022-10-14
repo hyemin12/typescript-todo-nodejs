@@ -1,9 +1,14 @@
 // Action Type 정의
+const SET_TODOS = "todos/SET_TODOS" as const;
 const ADD_TODO = "todos/ADD_TODO" as const;
 const TOGGLE_TODO = "todos/TOGGLE_TODO" as const;
 const DELETE_TODO = "todos/DELETE_TODO" as const;
 
 // action 생성 함수
+export const set_todos = (todos: Todo[]) => ({
+  type: SET_TODOS,
+  payload: todos,
+});
 export const addTodo = (text: string) => ({
   type: ADD_TODO,
   payload: text,
@@ -34,18 +39,7 @@ export type Todo = {
 
 export type TodosState = Todo[];
 
-const initialState: TodosState = [
-  {
-    idx: 1234,
-    content: "타입스크립트 공부하기",
-    isDone: 0,
-  },
-  {
-    idx: 555,
-    content: "할일 완료!",
-    isDone: 0,
-  },
-];
+const initialState: TodosState = [];
 
 // reducer
 function todoReducer(

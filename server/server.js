@@ -49,19 +49,18 @@ app.post("/create", (req, res) => {
 });
 
 app.post("/update", (req, res) => {
-  const idx = req.body.idx;
+  const idx = req.body.index;
   const todotext = req.body.content;
-  const isDone = req.body.done;
+  const isDone = req.body.isDone;
 
   connection.query(
-    "UPDATE todotable SET content = ? WHERE idx = ?",
+    "UPDATE todotable SET content = ?, isDone=? WHERE idx = ?",
     [todotext, isDone, idx],
     (error, rows, fields) => {
       if (error) {
         console.log(error);
       } else {
         res.send(rows);
-        console.log("수정 성공!");
       }
     }
   );

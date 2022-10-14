@@ -78,7 +78,7 @@ $mainColor: #fab005;
           font-weight: normal;
         }
         span.btn-edit {
-          color: blue;
+          color: #666;
           cursor: pointer;
           transition: 0.3s;
         }
@@ -115,7 +115,7 @@ $mainColor: #fab005;
       }
       // 할일 완료
       .todo-item.done {
-        p {
+        input.todo-text-input {
           color: #ccc;
           text-decoration: line-through;
         }

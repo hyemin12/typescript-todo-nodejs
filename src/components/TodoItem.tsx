@@ -13,21 +13,30 @@ function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
   const [checked, setChecked] = useState(false);
   const [isEdit, setEdit] = useState(true);
   const [value, setValue] = useState(todo.content);
-  function todoChecked() {
-    todo.isDone === 1 ? setChecked(true) : setChecked(false);
-  }
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
-  const todoDone = () => {};
+
+  function todoChecked() {
+    if (todo.isDone === 0) {
+      setChecked(true);
+      todo.isDone = 1;
+      todoEdit();
+    } else {
+      setChecked(false);
+      todo.isDone = 0;
+      todoEdit();
+    }
+  }
+
   const todoEdit = () => {
     try {
-      const res = axios.post("http://localhost:3001/update", {
+      axios.post("http://localhost:3001/update", {
         index: todo.idx,
         content: value,
         isDone: todo.isDone,
       });
-      console.log(value);
     } catch (err: any) {
       console.log(err.message);
     }
@@ -41,18 +50,25 @@ function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
         axios.post("http://localhost:3001/delete", {
           index: todo.idx,
         });
-        console.log("삭제 성공!");
+        window.location.reload();
       } catch (err: any) {
         console.log(err.message);
       }
     }
+    // onDelete(todo.idx);
   };
   return (
     <li className={(checked ? "done " : "") + "todo-item"}>
-      <input type="checkbox" id={`check-${todo.idx}`} onClick={todoChecked} />
+      <input
+        type="checkbox"
+        id={`check-${todo.idx}`}
+        onChange={todoChecked}
+        checked={checked}
+      />
       <label htmlFor={`check-${todo.idx}`}>
         {checked ? <i className="fas fa-check"></i> : ""}
       </label>
+
       <input
         type="text"
         value={value}
@@ -60,7 +76,6 @@ function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
         className="todo-text-input"
         onChange={onChange}
       />
-      {/* <p>{todo.content}</p> */}
 
       <span
         className="btn-edit"
@@ -68,8 +83,13 @@ function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
           setEdit(!isEdit);
         }}
       >
-        {isEdit ? <p>"수정"</p> : <p onClick={todoEdit}>"완료"</p>}
+        {isEdit ? (
+          <i className="fas fa-pen"></i>
+        ) : (
+          <i className="fas fa-check" onClick={todoEdit}></i>
+        )}
       </span>
+
       <span className="btn-delete" onClick={todoDelete}>
         <i className="fas fa-minus-circle"></i>
       </span>
