@@ -14,7 +14,7 @@ function TodoInsert({ onInsert }: TodoInsertProps) {
     const textbox = {
       value,
     };
-    fetch("http://localhost:3001/todo", {
+    fetch("http://localhost:3001/mkTodo", {
       method: "post",
       headers: {
         "content-type": "application/json",
