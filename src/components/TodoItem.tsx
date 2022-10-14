@@ -28,7 +28,7 @@ function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
       <label htmlFor={`check-${todo.id}`}>
         {checked ? <i className="fas fa-check"></i> : ""}
       </label>
-      <p>{todo.text}</p>
+      <p>{todo.content}</p>
       <span className="btn-delete" onClick={handleDelete}>
         <i className="fas fa-minus-circle"></i>
       </span>

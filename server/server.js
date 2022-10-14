@@ -32,7 +32,7 @@ app.get("/todos", (req, res) => {
   });
 });
 
-app.post("/mkTodo", (req, res) => {
+app.post("/create", (req, res) => {
   const todotext = req.body.value;
   console.log(todotext);
   connection.query(

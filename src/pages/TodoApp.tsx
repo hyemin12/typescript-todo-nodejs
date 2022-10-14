@@ -5,11 +5,11 @@ import Header from "../components/Header";
 import TodoInsert from "../components/TodoInsert";
 import TodoList from "../components/TodoList";
 import { RootState } from "../modules";
-import { addTodo, toggleTodo, deleteTodo } from "../modules/todos";
+import { addTodo, toggleTodo, deleteTodo, Todo } from "../modules/todos";
 import "../style.scss";
 
-function TodoApp() {
-  const todos = useSelector((state: RootState) => state.todoReducer);
+function TodoApp({ todos }: { todos: Todo[] }) {
+  // const todos = useSelector((state: RootState) => state.todoReducer);
   const dispatch = useDispatch();
 
   const [createMode, setCreate] = useState(false);

@@ -28,7 +28,7 @@ export type TodoAction =
 // type 초기값
 export type Todo = {
   id: number;
-  text: string;
+  content: string;
   done: boolean;
 };
 
@@ -37,12 +37,12 @@ export type TodosState = Todo[];
 const initialState: TodosState = [
   {
     id: 1234,
-    text: "타입스크립트 공부하기",
+    content: "타입스크립트 공부하기",
     done: false,
   },
   {
     id: 555,
-    text: "할일 완료!",
+    content: "할일 완료!",
     done: true,
   },
 ];
@@ -56,7 +56,7 @@ function todoReducer(
     case ADD_TODO:
       return state.concat({
         id: Date.now(),
-        text: action.payload,
+        content: action.payload,
         done: false,
       });
 
