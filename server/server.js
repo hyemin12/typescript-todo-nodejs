@@ -25,10 +25,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/todos", (req, res) => {
+  let todos = [];
   connection.query("SELECT * from todotable", (error, rows, fields) => {
     if (error) throw error;
     console.log("투두리스트 DB ", rows);
-    res.send(rows);
+    res.send({ todos });
   });
 });
 

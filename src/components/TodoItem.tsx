@@ -57,6 +57,7 @@ function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
     }
     // onDelete(todo.idx);
   };
+
   return (
     <li className={(checked ? "done " : "") + "todo-item"}>
       <input
