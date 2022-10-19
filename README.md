@@ -1,15 +1,67 @@
 # Node.js + Mysql + Typescript
 
-## 기능
+## @package
 
-- Todo Item 추가
-- Todo Item 수정
-- Todo Item 삭제
+### backend (server 폴더)
+
+- nodejs
+
+### fontend (client 폴더)
+
+- react (cra)
+- typescript
+- redux toolkit
+
+### database
+
+- mysql
+
+---
+
+## @기능
+
+#### getTodo()
+
+- 메인페이지 로드 시 useEffect()를 사용해서, mysql DB에 있는 todoList 가져오기
+- 로드된 todolist를 dispatch를 사용하여, store state에 저장하기
+
+  - state 전역 관리를 위해서... todo가 변경될 때마다 페이지를 새로고침 하지 않기 위해...
+  - state에 저장된 todolist를 app.js에서 가져와서, 프로젝트에 뿌려주기 (TodoList.tsx , Header.tsx)
+
+#### addTodo()
+
+- 플러스 버튼을 클릭하면, Todo를 작성할 수 있는 컴포넌트가 나타남(setState 활용한 컴포넌트 보여주고 안보여주기)
+
+  - 등록 버튼을 누르면 axios.post()를 활용하여, mysql 데이터베이스에 새로운 column을 생성함
+  - dispatch()를 활용하여 새로고침 없이 store state 변경하기
+
+#### updateTodo()
+
+- input readOnly를 활용하여 투두 입력 값 수정하기 (
+
+  - 버튼을 누르면 input의 readOnly를 false로 변환시켜, 내용 작성할 수 있도록 설정
+  - 수정 완료 버튼을 누르면, axios.post()를 활용하여 mysql 데이터베이스에서 해당 idx 값의 todo 내용을 수정하도록 설정
+
+- todo.isDone 값으로 할일 완료 관리하기
+  - 조건문을 활용하여 checkbox checked옵션과 스타일을 위한 className을 관리하기
+  - 버튼을 누르면, axios.post()와 dispatch()를 통해 해당 데이터 isDone값 수정하기
+
+#### deleteTodo()
+
+- 삭제 버튼을 누르면 해당 투두 삭제하기
+  - axios.post()와 dispatch()를 통해 해당 데이터 state와 데이터베이스에서 삭제하기
+
+#### redux toolkit
+
+- createSlice를 사용하여 보다 간결한 reducer 코드 작성을 함
+- configureStore을 사용하여, store를 생성하고, index.js에서 적용시킴
 
 <br>
 <br>
 
-## Express 와 React 연동하기
+## @학습한 내용 정리
+
+### Express 와 React 연동하기
 
 1. express 설치하기
 
@@ -46,7 +98,7 @@ node server/server.js
 4. localhost:3001로 들어가면
    "Hello World!"가 출력되어있음!
 
-## mysql이랑 연동하기
+### mysql이랑 연동하기
 
 1. mysql 다운 받기
 
@@ -135,7 +187,7 @@ app.use(cors());
 app.use(bodyParser.json());
 ```
 
-## mysql 데이터 가져오기(GET)
+### mysql 데이터 가져오기(GET)
 
 #### 데이터베이스에 있는 데이터 가져오기<br>
 
@@ -191,7 +243,7 @@ function App(){
 - useEffectt()로 웹페이지가 로드될 때 데이터를 가져오도록 설정, []를 통해 한번만 가져오도록 설정
 - todos={todos}를 통해 TodoApp에 데이터 전달하기
 
-## mysql 데이터 추가하기(POST)
+### mysql 데이터 추가하기(POST)
 
 #### mysql 데이터 추가하기 (INSERT)
 
@@ -256,7 +308,7 @@ function TodoInsert() {
 }
 ```
 
-## mysql 데이터 수정하기(UPDATE)
+### mysql 데이터 수정하기(UPDATE)
 
 #### mysql 데이터 수정하기 (특정조건)
 
@@ -295,18 +347,20 @@ app.post("/update", (req, res) => {
 - 수정기능
 
 ```js
+/** 투두 내용 수정 */
 const todoEdit = () => {
-    try {
-      axios.post("http://localhost:3001/delete", {
-          idx: todo.idx,
-        })
-    } catch (err: any) {
-      console.log(err.message);
-    }
+  const todoData = {
+    idx: todo.idx,
+    content: value,
   };
+  axios
+    .post("http://localhost:5000/api/todos/update", todoData)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 ```
 
-## mysql 데이터 삭제하기(DELETE)
+### mysql 데이터 삭제하기(DELETE)
 
 특정 조건 데이터만 삭제하기
 
@@ -337,17 +391,16 @@ app.post("/delete", (req, res) => {
 
 ```js
 /** 투두 삭제 */
-  const todoDelete = () => {
-    const isOk = window.confirm("정말 삭제하시겠습니까?");
-    if (isOk) {
-      try {
-        axios.post("http://localhost:3001/delete", {
-          index: todo.idx,
-        });
-        window.location.reload();
-      } catch (err: any) {
-        console.log(err.message);
-      }
-    }
-  };
+const todoDelete = () => {
+  const isOk = window.confirm("정말 삭제하시겠습니까?");
+  if (isOk) {
+    axios
+      .post("http://localhost:5000/api/todos/delete", {
+        idx: todo.idx,
+      })
+      .then((res) => res.data)
+      .catch((err) => console.log(err.message));
+  }
+  dispatch(deleteTodo(todo.idx));
+};
 ```

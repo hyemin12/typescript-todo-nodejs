@@ -1,5 +1,4 @@
-import axios from "axios";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 // type 초기값
 export type Todo = {
@@ -20,7 +19,13 @@ const todo = createSlice({
     getTodo(state, action) {
       return (state = [...action.payload]);
     },
-
+    addTodo(state, action) {
+      return state.concat({
+        idx: state[state.length - 1].idx + 1,
+        content: action.payload,
+        isDone: 0,
+      });
+    },
     toggleTodo(state, action) {
       return state.map((todo) =>
         todo.idx === action.payload.idx
@@ -34,28 +39,6 @@ const todo = createSlice({
   },
 });
 
-export const { getTodo, toggleTodo, deleteTodo } = todo.actions;
+export const { getTodo, addTodo, toggleTodo, deleteTodo } = todo.actions;
 
 export default todo;
-
-// switch (action.type) {
-//   case ADD_TODO:
-//     return state.concat({
-//       idx: Date.now(),
-//       content: action.payload,
-//       isDone: 0,
-//     });
-
-//   case TOGGLE_TODO:
-//     return state.map((todo) =>
-//       todo.idx === action.payload ? { ...todo, isDone: 1 } : todo
-//     );
-
-//   case DELETE_TODO:
-//     return
-//     case UPDATE_TODO:
-
-//       return state
-//   default:
-//     return state;
-// }

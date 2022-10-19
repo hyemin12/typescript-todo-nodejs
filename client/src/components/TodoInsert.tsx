@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { FormEvent, SetStateAction, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../modules/todos";
 
 function TodoInsert({
   setCreate,
@@ -7,7 +9,7 @@ function TodoInsert({
   setCreate: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const [value, setValue] = useState("");
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
@@ -20,6 +22,7 @@ function TodoInsert({
       })
       .then((res) => res.data)
       .catch((err) => console.log(err));
+    dispatch(addTodo(value));
     setValue("");
     setCreate(false);
   };

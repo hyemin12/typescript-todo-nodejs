@@ -14,12 +14,7 @@ function TodoItem({ todo }: { todo: Todo }) {
   };
   const dispatch = useDispatch();
 
-  // if (todo.isDone === 0) {
-  //   setChecked(true);
-  // } else if (todo.isDone === 1) {
-  //   setChecked(false);
-  // }
-
+  /** 투두 done 수정 */
   function todoChecked() {
     if (todo.isDone === 0) {
       setChecked(1);
@@ -48,6 +43,7 @@ function TodoItem({ todo }: { todo: Todo }) {
     }
   }
 
+  /** 투두 내용 수정 */
   const todoEdit = () => {
     const todoData = {
       idx: todo.idx,
