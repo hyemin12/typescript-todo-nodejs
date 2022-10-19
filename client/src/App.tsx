@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./modules";
 import { getTodo } from "./modules/todos";
 import TodoApp from "./pages/TodoApp";
 
 function App() {
+  const todoState = useSelector((state: RootState) => state.todoReducer);
   const [todos, setTodos] = useState([]);
   const dispatch = useDispatch();
 
@@ -14,7 +16,6 @@ function App() {
       const req = await axios.get("http://localhost:5000/todos");
       setTodos(req.data.rows);
       dispatch(getTodo(req.data.rows));
-      console.log(req.data);
     } catch (err: any) {
       console.log(err.message);
     }
@@ -24,7 +25,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <TodoApp todos={todos} />{" "}
+      <TodoApp todos={todoState} />
     </div>
   );
 }

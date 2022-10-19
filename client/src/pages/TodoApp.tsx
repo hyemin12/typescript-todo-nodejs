@@ -18,7 +18,7 @@ function TodoApp({ todos }: { todos: Todo[] }) {
       <div className="inner">
         <Header todos={todos} />
         <TodoList todos={todos} />
-        {createMode && <TodoInsert />}
+        {createMode && <TodoInsert setCreate={setCreate} />}
       </div>
       <div
         className="btn-create"

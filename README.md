@@ -1,12 +1,10 @@
-# typescript Todo App
+# Node.js + Mysql + Typescript
 
 ## 기능
 
 - Todo Item 추가
 - Todo Item 수정
 - Todo Item 삭제
-- Todo Item 완료 여부 (체크박스)
-- 할일 완료 목록
 
 <br>
 <br>
@@ -299,11 +297,9 @@ app.post("/update", (req, res) => {
 ```js
 const todoEdit = () => {
     try {
-      axios.post("http://localhost:3001/update", {
-        index: todo.idx,
-        content: value,
-        isDone: todo.isDone,
-      });
+      axios.post("http://localhost:3001/delete", {
+          idx: todo.idx,
+        })
     } catch (err: any) {
       console.log(err.message);
     }

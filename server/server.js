@@ -35,30 +35,42 @@ app.get("/todos", (req, res) => {
       console.log(error);
       throw error;
     } else {
-      console.log("투두리스트 DB ", rows);
       res.send({ rows });
     }
   });
 });
 
 app.post("/api/todos/create", (req, res) => {
-  const todotext = req.body.content;
-  console.log(todotext);
+  const todo = req.body.content;
   connection.query(
     "INSERT INTO todotable (content) values(?)",
-    [todotext],
+    [todo],
     (error, rows, fields) => {
       if (error) {
         console.log(error);
-      } else {
-        console.log("db 저장 성공!");
       }
     }
   );
 });
 
 app.post("/api/todos/update", (req, res) => {
-  const idx = req.body.index;
+  const idx = req.body.idx;
+  const todotext = req.body.content;
+
+  connection.query(
+    "UPDATE todotable SET content = ? WHERE idx = ?",
+    [todotext, idx],
+    (error, rows, fields) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.send(rows);
+      }
+    }
+  );
+});
+app.post("/api/todos/update", (req, res) => {
+  const idx = req.body.idx;
   const todotext = req.body.content;
   const isDone = req.body.isDone;
 
@@ -75,8 +87,25 @@ app.post("/api/todos/update", (req, res) => {
   );
 });
 
+app.post("/api/todos/updateDone", (req, res) => {
+  const isDone = req.body.isDone;
+  const idx = req.body.idx;
+
+  connection.query(
+    "UPDATE todotable SET isDone=? WHERE idx = ?",
+    [isDone, idx],
+    (error, rows, fields) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.send(rows);
+      }
+    }
+  );
+});
+
 app.post("/api/todos/delete", (req, res) => {
-  const idx = req.body.index;
+  const idx = req.body.idx;
   connection.query(
     "DELETE FROM todotable where idx=?",
     [idx],

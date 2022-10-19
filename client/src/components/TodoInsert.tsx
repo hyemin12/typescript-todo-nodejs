@@ -1,25 +1,27 @@
-import React, { FormEvent, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addTodo } from "../modules/todos";
+import axios from "axios";
+import React, { FormEvent, SetStateAction, useState } from "react";
 
-function TodoInsert() {
+function TodoInsert({
+  setCreate,
+}: {
+  setCreate: React.Dispatch<SetStateAction<boolean>>;
+}) {
   const [value, setValue] = useState("");
-
+  // const dispatch = useDispatch();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const dispatch = useDispatch();
-
   const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    dispatch(addTodo(value));
-    // try {
-    //   setValue("");
-    //   console.log("DB 전송 성공!", req);
-    // } catch (err: any) {
-    //   console.log(err.message);
-    // }
+    // e.preventDefault();
+    axios
+      .post("http://localhost:5000/api/todos/create", {
+        content: value,
+      })
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+    setValue("");
+    setCreate(false);
   };
   return (
     <div className="create-todo">

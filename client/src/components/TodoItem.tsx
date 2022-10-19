@@ -1,56 +1,85 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
-import { Todo, updateTodo, deleteTodo } from "../modules/todos";
+import { deleteTodo, Todo, toggleTodo } from "../modules/todos";
 
 function TodoItem({ todo }: { todo: Todo }) {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(0);
+
   const [isEdit, setEdit] = useState(true);
   const [value, setValue] = useState(todo.content);
-
-  const dispatch = useDispatch();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+  const dispatch = useDispatch();
+
+  // if (todo.isDone === 0) {
+  //   setChecked(true);
+  // } else if (todo.isDone === 1) {
+  //   setChecked(false);
+  // }
 
   function todoChecked() {
     if (todo.isDone === 0) {
-      setChecked(true);
-      todo.isDone = 1;
-      todoEdit();
+      setChecked(1);
+      axios.post("http://localhost:5000/api/todos/updateDone", {
+        idx: todo.idx,
+        isDone: 1,
+      });
+      dispatch(
+        toggleTodo({
+          idx: todo.idx,
+          isDone: 1,
+        })
+      );
     } else {
-      setChecked(false);
-      todo.isDone = 0;
-      todoEdit();
+      setChecked(0);
+      axios.post("http://localhost:5000/api/todos/updateDone", {
+        idx: todo.idx,
+        isDone: 0,
+      });
+      dispatch(
+        toggleTodo({
+          idx: todo.idx,
+          isDone: 0,
+        })
+      );
     }
   }
 
   const todoEdit = () => {
-    const todoData: Todo = {
+    const todoData = {
       idx: todo.idx,
       content: value,
-      isDone: todo.isDone,
     };
-    dispatch(updateTodo(todoData));
+    axios
+      .post("http://localhost:5000/api/todos/update", todoData)
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
   };
 
   /** 투두 삭제 */
   const todoDelete = () => {
-    const idx = todo.idx;
     const isOk = window.confirm("정말 삭제하시겠습니까?");
     if (isOk) {
-      dispatch(deleteTodo(idx));
+      axios
+        .post("http://localhost:5000/api/todos/delete", {
+          idx: todo.idx,
+        })
+        .then((res) => res.data)
+        .catch((err) => console.log(err.message));
     }
+    dispatch(deleteTodo(todo.idx));
   };
 
   return (
-    <li className={(checked ? "done " : "") + "todo-item"}>
+    <li className={(todo.isDone !== 0 ? "done " : "") + "todo-item"}>
       <input
         type="checkbox"
         id={`check-${todo.idx}`}
         onChange={todoChecked}
-        checked={checked}
+        checked={checked === 0 ? false : true}
       />
       <label htmlFor={`check-${todo.idx}`}>
         {checked ? <i className="fas fa-check"></i> : ""}
