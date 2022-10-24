@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "./modules";
+import { useDispatch } from "react-redux";
 import { getTodo } from "./modules/todos";
 import TodoApp from "./pages/TodoApp";
 
