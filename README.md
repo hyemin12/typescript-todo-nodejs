@@ -11,6 +11,7 @@
 - react (cra)
 - typescript
 - redux toolkit
+- scss
 
 ### database
 
@@ -55,6 +56,58 @@
 
 - createSlice를 사용하여 보다 간결한 reducer 코드 작성을 함
 - configureStore을 사용하여, store를 생성하고, index.js에서 적용시킴
+
+### Client 화면
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/nodeJs.JPG?raw=true" alt="메인화면" />
+- Header : 날짜, 남은 할일 개수
+- body : todo items (할일 완료 확인, 투두 내용, 수정 버튼, 삭제버튼)
+
+### todo item 추가
+
+#### ＊아이템 추가 폼
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/todoInsert.JPG?raw=true" alt="아이템추가폼" />
+
+#### ＊아이템 추가 성공!
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/add-success.JPG?raw=true" alt="아이템추가성공" />
+
+#### ＊backend DB
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/add-database.JPG?raw=true" alt="database" />
+
+---
+
+### todo item 수정
+
+#### ＊아이템 수정 폼
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/todoEdit.JPG?raw=true" alt="아이템수정폼" />
+
+#### ＊아이템 수정 성공!
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/edit-success.JPG?raw=true" alt="아이템수정성공" />
+
+#### ＊backend DB
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/edit-database.JPG?raw=true" alt="database" />
+
+---
+
+### todo item 삭제
+
+#### ＊아이템 삭제 확인 메세지
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/todoDelete.JPG?raw=true" alt="아이템삭제" />
+
+#### ＊아이템 수정 성공!
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/delete-success.JPG?raw=true" alt="아이템삭제성공" />
+
+#### ＊backend DB
+
+<img src="https://github.com/hyemin12/typescript-todo-nodejs/raw/master/markdownImg/delete-database.JPG?raw=true" alt="database" />
 
 <br>
 <br>
