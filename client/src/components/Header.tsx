@@ -1,9 +1,6 @@
-import { Todo } from "../modules/todos";
+import { TodoProps } from "../modules/todos";
 
-type TodoLengthProps = {
-  todos: Todo[];
-};
-function Header({ todos }: TodoLengthProps) {
+function Header({ todos }: { todos: TodoProps[] }) {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth();

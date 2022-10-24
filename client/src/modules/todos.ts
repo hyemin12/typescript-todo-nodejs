@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // type 초기값
-export type Todo = {
+export type TodoProps = {
   idx: number;
   content: string;
   isDone: number;
 };
 
-export type TodosState = Todo[];
+export type TodosState = TodoProps[];
 
-var initialState: Todo[] = [];
+var initialState: TodoProps[] = [];
 
 // reducer
 const todo = createSlice({

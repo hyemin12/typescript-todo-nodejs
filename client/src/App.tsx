@@ -6,7 +6,6 @@ import { getTodo } from "./modules/todos";
 import TodoApp from "./pages/TodoApp";
 
 function App() {
-  const todoState = useSelector((state: RootState) => state.todoReducer);
   const [todos, setTodos] = useState([]);
   const dispatch = useDispatch();
 
@@ -25,7 +24,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <TodoApp todos={todoState} />
+      <TodoApp />
     </div>
   );
 }

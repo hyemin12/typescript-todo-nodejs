@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTodo, Todo, toggleTodo } from "../modules/todos";
+import { deleteTodo, TodoProps, toggleTodo } from "../modules/todos";
 
-function TodoItem({ todo }: { todo: Todo }) {
+function TodoItem({ todo }: { todo: TodoProps }) {
   const [checked, setChecked] = useState(0);
-
   const [isEdit, setEdit] = useState(true);
   const [value, setValue] = useState(todo.content);
 

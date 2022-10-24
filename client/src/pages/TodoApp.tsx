@@ -1,15 +1,16 @@
-import React from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import TodoInsert from "../components/TodoInsert";
 import TodoList from "../components/TodoList";
-import { Todo } from "../modules/todos";
+import { RootState } from "../modules";
+import { TodoProps } from "../modules/todos";
 
 import "../style.scss";
 
-function TodoApp({ todos }: { todos: Todo[] }) {
-  const dispatch = useDispatch();
+function TodoApp() {
+  const todoState = useSelector((state: RootState) => state.todoReducer);
+  const todos: TodoProps[] = [...todoState].sort((a, b) => a.isDone - b.isDone);
 
   const [createMode, setCreate] = useState(false);
 

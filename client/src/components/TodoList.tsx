@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import TodoItem from "./TodoItem";
-import { Todo } from "../modules/todos";
+import { TodoProps } from "../modules/todos";
 
-function TodoList({ todos }: { todos: Todo[] }) {
+function TodoList({ todos }: { todos: TodoProps[] }) {
   useEffect(() => {}, [todos]);
 
   if (todos.length === 0) return <p className="empty-todo">할일이 없습니다.</p>;
